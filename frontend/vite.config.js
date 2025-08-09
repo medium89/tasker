@@ -24,13 +24,13 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
       hmr: { host: hmrHost, port: hmrPort, protocol: hmrProtocol },
       proxy: {
-        // только API и sanctum
+        // Laravel Sanctum / API
         '/api': {
-          target: apiUrl,        // получится http://nginx/api/...
+          target: apiUrl,
           changeOrigin: true,
         },
         '/sanctum': {
-          target: apiUrl,        // http://nginx/sanctum/...
+          target: apiUrl,
           changeOrigin: true,
         },
       },
