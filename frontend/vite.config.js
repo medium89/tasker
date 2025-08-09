@@ -2,6 +2,7 @@
 /* global process */
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -13,23 +14,27 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [vue()],
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
     server: {
-      host: true, // слушаем 0.0.0.0 внутри контейнера
+      host: true,
       port: serverPort,
       strictPort: true,
       hmr: {
-        host: hmrHost, // так твой браузер достучится
+        host: hmrHost,
         port: hmrPort,
         protocol: hmrProtocol,
       },
       proxy: {
-        // ИДЁМ НЕ НА localhost, а на имя сервиса из docker-compose: nginx (порт 80)
         '/sanctum': { target: apiUrl, changeOrigin: true },
-        '/login': { target: apiUrl, changeOrigin: true },
-        '/logout': { target: apiUrl, changeOrigin: true },
-        '/register': { target: apiUrl, changeOrigin: true },
-        '/user': { target: apiUrl, changeOrigin: true },
-        '/api': { target: apiUrl, changeOrigin: true },
+        '/login':   { target: apiUrl, changeOrigin: true },
+        '/logout':  { target: apiUrl, changeOrigin: true },
+        '/register':{ target: apiUrl, changeOrigin: true },
+        '/user':    { target: apiUrl, changeOrigin: true },
+        '/api':     { target: apiUrl, changeOrigin: true },
       },
     },
   }
