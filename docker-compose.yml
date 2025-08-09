@@ -33,10 +33,12 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - ./backend:/app          # <-- МОНТИРУЕМ backend, а не ./frontend
+      - ./frontend:/app
       - /app/node_modules
     working_dir: /app
-    command: sh -lc "npm ci || npm i && npm run dev -- --host --port 5173"
+    environment:
+      VITE_API_URL: http://nginx_server/api
+    command: sh -lc "npm ci || npm i && npm run dev -- --host 0.0.0.0 --port 5173"
 
   nginx:
     image: nginx:alpine
