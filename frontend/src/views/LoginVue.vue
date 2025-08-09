@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-const email = ref(''); const password = ref(''); const error = ref(null); const loading = ref(false)
+const email = ref(''); const password = ref(''); const error = ref(null); const loading = ref(false); const me = ref(null)
 
 const getXsrf = () => {
   const c = document.cookie.split('; ').find(v => v.startsWith('XSRF-TOKEN='))
