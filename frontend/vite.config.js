@@ -29,6 +29,18 @@ export default defineConfig(({ mode }) => {
           target: apiUrl,
           changeOrigin: true,
         },
+        '/login': {
+          target: apiUrl,
+          changeOrigin: true,
+        },
+        '/logout': {
+          target: apiUrl,
+          changeOrigin: true,
+        },
+        '/register': {
+          target: apiUrl,
+          changeOrigin: true,
+        },
         '/sanctum': {
           target: apiUrl,
           changeOrigin: true,

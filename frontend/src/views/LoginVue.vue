@@ -14,7 +14,7 @@ async function login() {
   try {
     await fetch('/sanctum/csrf-cookie', { method:'GET', credentials:'include', headers:{'X-Requested-With':'XMLHttpRequest'} })
 
-    const res = await fetch('/api/login', {                // <— ВАЖНО: /api/login
+    const res = await fetch('/login', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -28,7 +28,7 @@ async function login() {
 
     if (!(res.status === 204 || res.ok)) {
       let msg = 'Ошибка входа'
-      try { msg = (await res.clone().json()).message || msg } catch {}
+      try { msg = (await res.clone().json()).message || msg } catch { /* ignore */ }
       throw new Error(msg)
     }
 
