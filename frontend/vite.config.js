@@ -6,6 +6,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
+  // сервис в compose называется `nginx`, его и используем
   const apiUrl = env.VITE_API_URL || 'http://nginx'
   const serverPort = Number(env.VITE_DEV_SERVER_PORT || 5173)
   const hmrHost = env.VITE_HMR_HOST || 'localhost'
@@ -15,26 +16,23 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [vue()],
     resolve: {
-      alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-      },
+      alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
     },
     server: {
       host: true,
       port: serverPort,
       strictPort: true,
-      hmr: {
-        host: hmrHost,
-        port: hmrPort,
-        protocol: hmrProtocol,
-      },
+      hmr: { host: hmrHost, port: hmrPort, protocol: hmrProtocol },
       proxy: {
-        '/sanctum': { target: apiUrl, changeOrigin: true },
-        '/login':   { target: apiUrl, changeOrigin: true },
-        '/logout':  { target: apiUrl, changeOrigin: true },
-        '/register':{ target: apiUrl, changeOrigin: true },
-        '/user':    { target: apiUrl, changeOrigin: true },
-        '/api':     { target: apiUrl, changeOrigin: true },
+        // только API и sanctum
+        '/api': {
+          target: apiUrl,        // получится http://nginx/api/...
+          changeOrigin: true,
+        },
+        '/sanctum': {
+          target: apiUrl,        // http://nginx/sanctum/...
+          changeOrigin: true,
+        },
       },
     },
   }

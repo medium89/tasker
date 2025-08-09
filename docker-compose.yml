@@ -36,8 +36,8 @@ services:
       - ./frontend:/app
       - /app/node_modules
     working_dir: /app
-    environment:
-      VITE_API_URL: http://nginx_server/api
+    # environment:
+    #   VITE_API_URL: http://nginx_server/api
     command: sh -lc "npm ci || npm i && npm run dev -- --host 0.0.0.0 --port 5173"
 
   nginx:

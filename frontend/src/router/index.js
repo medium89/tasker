@@ -1,13 +1,10 @@
-// src/router/index.js (или .ts)
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '@/views/LoginPage.vue'
-
-const routes = [
-  { path: '/login', component: LoginPage },
-  // другие маршруты
-]
+import LoginVue from '@/views/LoginVue.vue' // имя совпадает с файлом
 
 export default createRouter({
   history: createWebHistory(),
-  routes,
+  routes: [
+    { path: '/', redirect: '/login' },
+    { path: '/login', name: 'login', component: LoginVue },
+  ],
 })
