@@ -8,6 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Task;
+use App\Models\Comment;
+use App\Models\TaskUser;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -42,4 +46,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'tasks_users')
+            ->using(TaskUser::class)
+            ->withPivot(['role', 'created_at']); // без withTimestamps()
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

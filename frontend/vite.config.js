@@ -24,12 +24,33 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
       hmr: { host: hmrHost, port: hmrPort, protocol: hmrProtocol },
       proxy: {
-        // Laravel Sanctum / API
-        '/api': {
+        // Sanctum (CSRF cookie)
+        '/sanctum': {
           target: apiUrl,
           changeOrigin: true,
         },
-        '/sanctum': {
+        // '/login': {
+        //   target: apiUrl,
+        //   changeOrigin: true,
+        // },
+        '/logout': {
+          target: apiUrl,
+          changeOrigin: true,
+        },
+        '/register': {
+          target: apiUrl,
+          changeOrigin: true,
+        },
+        '/user': {
+          target: apiUrl,
+          changeOrigin: true,
+        },
+        '/tasks': {
+          target: apiUrl,
+          changeOrigin: true,
+        },
+        // Остальной API при необходимости
+        '/api': {
           target: apiUrl,
           changeOrigin: true,
         },
