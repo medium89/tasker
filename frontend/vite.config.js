@@ -29,10 +29,10 @@ export default defineConfig(({ mode }) => {
           target: apiUrl,
           changeOrigin: true,
         },
-        // '/login': {
-        //   target: apiUrl,
-        //   changeOrigin: true,
-        // },
+        '/login': {
+          target: apiUrl,
+          changeOrigin: true,
+        },
         '/logout': {
           target: apiUrl,
           changeOrigin: true,
@@ -51,6 +51,10 @@ export default defineConfig(({ mode }) => {
         },
         // Остальной API при необходимости
         '/api': {
+          target: apiUrl,
+          changeOrigin: true,
+        },
+        '/dashboard': {
           target: apiUrl,
           changeOrigin: true,
         },
