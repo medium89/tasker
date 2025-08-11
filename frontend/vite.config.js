@@ -29,9 +29,10 @@ export default defineConfig(({ mode }) => {
           target: apiUrl,
           changeOrigin: true,
         },
-        '/login': {
+        '/auth': {
           target: apiUrl,
           changeOrigin: true,
+          rewrite: p => p.replace(/^\/auth/, '/login'),
         },
         '/logout': {
           target: apiUrl,
@@ -49,7 +50,6 @@ export default defineConfig(({ mode }) => {
           target: apiUrl,
           changeOrigin: true,
         },
-        // Остальной API при необходимости
         '/api': {
           target: apiUrl,
           changeOrigin: true,

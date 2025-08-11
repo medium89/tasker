@@ -1,0 +1,7 @@
+{
+    "watch": ["vite.config.js", ".env", "package.json"],
+    "ext": "js,json,env",
+    "ignore": ["node_modules"],
+    "exec": "npm run dev"
+  }
+  

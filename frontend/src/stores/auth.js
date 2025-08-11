@@ -1,4 +1,5 @@
-import { reactive } from 'vue'
+// src/auth.js
+import { reactive, computed } from 'vue'
 
 export const auth = reactive({
   user: null,
@@ -8,16 +9,13 @@ export const auth = reactive({
         credentials: 'include',
         headers: { 'Accept': 'application/json' }
       })
-      if (res.ok) {
-        this.user = await res.json()
-      } else {
-        this.user = null
-      }
+      this.user = res.ok ? await res.json() : null
     } catch {
       this.user = null
     }
   },
-  logout() {
-    this.user = null
-  }
+  logout() { this.user = null }
 })
+
+export const isAuthenticated = computed(() => !!auth.user)
+export const userName = computed(() => auth.user?.name || '')

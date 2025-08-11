@@ -5,6 +5,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', redirect: '/auth' },
+    { path: '/login', redirect: '/auth' }, // чтобы старый путь вёл на новый
     { path: '/auth', name: 'login', component: LoginVue },
     {
       path: '/dashboard',
@@ -31,11 +32,11 @@ router.beforeEach(async (to, from, next) => {
       })
 
       if (!res.ok) {
-        // Если не авторизован, перекидываем на login
-        return next('/login')
+        // Если не авторизован, перекидываем на /auth
+        return next('/auth')
       }
     } catch (e) {
-      return next('/login')
+      return next('/auth')
     }
   }
   next()

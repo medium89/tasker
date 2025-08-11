@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "vite --host --strictPort",
+    "dev:auto": "nodemon",
     "build": "vite build",
     "preview": "vite preview",
     "test:unit": "vitest",
@@ -29,6 +30,7 @@
     "eslint-plugin-vue": "~10.3.0",
     "globals": "^16.3.0",
     "jsdom": "^26.1.0",
+    "nodemon": "^3.1.10",
     "prettier": "3.6.2",
     "vite": "^7.0.6",
     "vite-plugin-vue-devtools": "^8.0.0",

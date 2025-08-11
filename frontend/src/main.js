@@ -4,13 +4,14 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
-import { loadMe } from './session' // добавь
+// ВАЖНО: берём относительный путь и явное расширение
+import { auth } from './auth.js'
 
 const app = createApp(App)
-
 app.use(createPinia())
 app.use(router)
 
-loadMe() // добавь перед mount
+// подтягиваем пользователя, чтобы бейдж сразу знал статус
+auth.fetchUser()
 
 app.mount('#app')
