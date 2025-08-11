@@ -24,11 +24,11 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
       hmr: { host: hmrHost, port: hmrPort, protocol: hmrProtocol },
       proxy: {
-        '/api': 'http://localhost', // Laravel контейнер
-        '/login': 'http://localhost',
-        '/logout': 'http://localhost',
-        '/sanctum': 'http://localhost',
-        '/user': 'http://localhost'
+        '/api': apiUrl, // Laravel контейнер
+        '/login': apiUrl,
+        '/logout': apiUrl,
+        '/sanctum': apiUrl,
+        '/user': apiUrl
       },
     },
   }
