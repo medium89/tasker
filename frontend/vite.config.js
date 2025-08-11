@@ -24,46 +24,11 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
       hmr: { host: hmrHost, port: hmrPort, protocol: hmrProtocol },
       proxy: {
-        // Sanctum (CSRF cookie)
-        '/sanctum': {
-          target: apiUrl,
-          changeOrigin: true,
-        },
-        // '/auth': {
-        //   target: apiUrl,
-        //   changeOrigin: true,
-        //   rewrite: p => p.replace(/^\/auth/, '/login'),
-        //   bypass(req) {
-        //     // если открываем страницу (Accept: text/html), не проксировать
-        //     if (req.method === 'GET' && req.headers.accept?.includes('text/html')) {
-        //       return '/index.html' // пусть Vite отдаст SPA
-        //     }
-        //   }
-        // },
-        '/logout': {
-          target: apiUrl,
-          changeOrigin: true,
-        },
-        '/register': {
-          target: apiUrl,
-          changeOrigin: true,
-        },
-        '/user': {
-          target: apiUrl,
-          changeOrigin: true,
-        },
-        '/tasks': {
-          target: apiUrl,
-          changeOrigin: true,
-        },
-        '/api': {
-          target: apiUrl,
-          changeOrigin: true,
-        },
-        '/dashboard': {
-          target: apiUrl,
-          changeOrigin: true,
-        },
+        '/api': 'http://localhost', // Laravel контейнер
+        '/login': 'http://localhost',
+        '/logout': 'http://localhost',
+        '/sanctum': 'http://localhost',
+        '/user': 'http://localhost'
       },
     },
   }

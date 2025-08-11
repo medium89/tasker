@@ -29,7 +29,7 @@ export async function login(email, password) {
   await getCsrf()
   const xsrf = getCookie('XSRF-TOKEN')
 
-  const res = await fetch('/login', {
+  const res = await fetch('/api/login', {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -44,14 +44,13 @@ export async function login(email, password) {
     const data = await res.json().catch(() => ({}))
     throw new Error(data.message || 'Неверный логин или пароль')
   }
-
   return fetchUser()
 }
 
 export async function logout() {
   const xsrf = getCookie('XSRF-TOKEN')
 
-  const res = await fetch('/logout', {
+  const res = await fetch('/api/logout', {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -59,6 +58,5 @@ export async function logout() {
       'X-XSRF-TOKEN': xsrf,
     },
   })
-
   if (!res.ok) throw new Error('Не удалось выйти')
 }

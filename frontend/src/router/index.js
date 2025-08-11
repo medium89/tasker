@@ -7,27 +7,26 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', redirect: '/auth' },
-    { path: '/auth', name: 'login', component: LoginView }, // публично
+    { path: '/auth', name: 'login', component: LoginVue }, // публичный
     {
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('@/views/DashboardView.vue'),
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
     },
     {
       path: '/profile',
       name: 'profile',
       component: () => import('@/views/ProfileView.vue'),
-      meta: { requiresAuth: true }
-    }
-  ]
+      meta: { requiresAuth: true },
+    },
+  ],
 })
 
-// Глобальный гард: пускаем на приватные только авторизованных
 router.beforeEach(async (to) => {
   if (!to.meta?.requiresAuth) return true
-  const user = await fetchUser().catch(() => null)
-  if (!user) return { name: 'login', query: { redirect: to.fullPath } }
+  const me = await fetchUser().catch(() => null)
+  if (!me) return { name: 'login', query: { redirect: to.fullPath } }
   return true
 })
 
