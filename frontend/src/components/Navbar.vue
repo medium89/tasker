@@ -1,36 +1,44 @@
+<!-- Navbar.vue -->
 <template>
-    <nav style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding: 10px;">
-      <span v-if="user">Логин: {{ user.name }}</span>
-      <span v-else>Не авторизован</span>
+    <nav style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid #eee;">
+      <div style="font-weight:600;">Tasker</div>
+      <div>
+        <template v-if="loading">Проверяем вход…</template>
+        <template v-else-if="user">
+          Привет, {{ user.name }}
+          <button @click="onLogout" style="margin-left: 8px; text-decoration: underline;">Выйти</button>
+        </template>
+        <template v-else>
+          <router-link to="/login">Войти</router-link>
+        </template>
+      </div>
     </nav>
   </template>
   
-  <script>
-  export default {
-    data() {
-      return {
-        user: null
-      }
-    },
-    mounted() {
-      fetch('/user', {
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest'
-        }
-      })
-        .then(res => {
-          if (!res.ok) throw new Error('Не авторизован');
-          return res.json();
-        })
-        .then(data => {
-          this.user = data;
-        })
-        .catch(() => {
-          this.user = null;
-        });
+  <script setup>
+  import { ref, onMounted } from 'vue';
+  import { fetchUser, logout } from '@/auth';
+  import { useRouter } from 'vue-router';
+  
+  const router = useRouter();
+  const user = ref(null);
+  const loading = ref(true);
+  
+  async function load() {
+    loading.value = true;
+    try {
+      user.value = await fetchUser();
+    } finally {
+      loading.value = false;
     }
   }
+  
+  async function onLogout() {
+    await logout();
+    user.value = null;
+    router.replace('/login');
+  }
+  
+  onMounted(load);
   </script>
   

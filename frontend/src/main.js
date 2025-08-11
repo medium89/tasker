@@ -1,17 +1,6 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+// main.js
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router/index';
 
-import App from './App.vue'
-import router from './router'
-
-// ВАЖНО: берём относительный путь и явное расширение
-import { auth } from './auth.js'
-
-const app = createApp(App)
-app.use(createPinia())
-app.use(router)
-
-// подтягиваем пользователя, чтобы бейдж сразу знал статус
-auth.fetchUser()
-
-app.mount('#app')
+createApp(App).use(router).mount('#app');

@@ -1,12 +1,13 @@
+// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginVue from '@/views/LoginVue.vue'
+import LoginVue from '@/views/LoginView.vue'
+import { fetchUser } from '@/auth'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', redirect: '/auth' },
-    { path: '/login', redirect: '/auth' }, // чтобы старый путь вёл на новый
-    { path: '/auth', name: 'login', component: LoginVue },
+    { path: '/auth', name: 'login', component: LoginView }, // публично
     {
       path: '/dashboard',
       name: 'dashboard',
@@ -22,24 +23,12 @@ const router = createRouter({
   ]
 })
 
-// Глобальный гвард авторизации
-router.beforeEach(async (to, from, next) => {
-  if (to.meta.requiresAuth) {
-    try {
-      const res = await fetch('/user', {
-        credentials: 'include',
-        headers: { 'Accept': 'application/json' }
-      })
-
-      if (!res.ok) {
-        // Если не авторизован, перекидываем на /auth
-        return next('/auth')
-      }
-    } catch (e) {
-      return next('/auth')
-    }
-  }
-  next()
+// Глобальный гард: пускаем на приватные только авторизованных
+router.beforeEach(async (to) => {
+  if (!to.meta?.requiresAuth) return true
+  const user = await fetchUser().catch(() => null)
+  if (!user) return { name: 'login', query: { redirect: to.fullPath } }
+  return true
 })
 
 export default router

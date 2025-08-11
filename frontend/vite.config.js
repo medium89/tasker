@@ -29,11 +29,17 @@ export default defineConfig(({ mode }) => {
           target: apiUrl,
           changeOrigin: true,
         },
-        '/auth': {
-          target: apiUrl,
-          changeOrigin: true,
-          rewrite: p => p.replace(/^\/auth/, '/login'),
-        },
+        // '/auth': {
+        //   target: apiUrl,
+        //   changeOrigin: true,
+        //   rewrite: p => p.replace(/^\/auth/, '/login'),
+        //   bypass(req) {
+        //     // если открываем страницу (Accept: text/html), не проксировать
+        //     if (req.method === 'GET' && req.headers.accept?.includes('text/html')) {
+        //       return '/index.html' // пусть Vite отдаст SPA
+        //     }
+        //   }
+        // },
         '/logout': {
           target: apiUrl,
           changeOrigin: true,

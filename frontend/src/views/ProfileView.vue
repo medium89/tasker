@@ -1,93 +1,34 @@
-<script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-const user = ref({ name: '', email: '' })
-const loading = ref(false)
-const message = ref('')
-const error = ref('')
-
-// Загружаем данные профиля
-onMounted(async () => {
-  try {
-    const res = await fetch('/user', {
-      credentials: 'include',
-      headers: { 'Accept': 'application/json' }
-    })
-    if (!res.ok) throw new Error('Не удалось загрузить профиль')
-    user.value = await res.json()
-  } catch (e) {
-    error.value = e.message
-  }
-})
-
-// Сохраняем изменения
-async function saveProfile() {
-  loading.value = true
-  message.value = ''
-  error.value = ''
-
-  try {
-    const res = await fetch('/user/profile-information', {
-      method: 'PUT',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(user.value)
-    })
-    if (!res.ok) throw new Error('Ошибка сохранения')
-    message.value = 'Профиль обновлён'
-  } catch (e) {
-    error.value = e.message
-  } finally {
-    loading.value = false
-  }
-}
-
-// Удаляем аккаунт
-async function deleteAccount() {
-  if (!confirm('Точно удалить аккаунт? Это действие необратимо!')) return
-
-  loading.value = true
-  try {
-    const res = await fetch('/user', {
-      method: 'DELETE',
-      credentials: 'include',
-      headers: { 'Accept': 'application/json' }
-    })
-    if (!res.ok) throw new Error('Ошибка удаления')
-    router.push('/login')
-  } catch (e) {
-    error.value = e.message
-  } finally {
-    loading.value = false
-  }
-}
-</script>
-
+<!-- ProfileView.vue -->
 <template>
-  <div>
-    <h2>Мой профиль</h2>
-
-    <p v-if="error" style="color:red">{{ error }}</p>
-    <p v-if="message" style="color:green">{{ message }}</p>
-
-    <div>
-      <label>Имя:</label>
-      <input v-model="user.name" type="text" />
-    </div>
-
-    <div>
-      <label>Email:</label>
-      <input v-model="user.email" type="email" />
-    </div>
-
-    <button @click="saveProfile" :disabled="loading">Сохранить</button>
-    <button @click="deleteAccount" :disabled="loading" style="margin-left: 10px; color: red;">
-      Удалить аккаунт
-    </button>
-  </div>
-</template>
+    <section style="max-width: 600px; margin: 32px auto; padding: 16px;">
+      <h1 style="font-size: 22px; font-weight: 700; margin-bottom: 16px;">Профиль</h1>
+  
+      <div v-if="loading">Загружаем профиль…</div>
+      <div v-else-if="error" style="color:#d00;">{{ error }}</div>
+      <div v-else-if="user">
+        <p><strong>Имя:</strong> {{ user.name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Создан:</strong> {{ new Date(user.created_at).toLocaleString() }}</p>
+      </div>
+    </section>
+  </template>
+  
+  <script setup>
+  import { ref, onMounted } from 'vue'
+  import { fetchUser } from '@/auth'
+  
+  const user = ref(null)
+  const loading = ref(true)
+  const error = ref('')
+  
+  onMounted(async () => {
+    try {
+      user.value = await fetchUser()
+    } catch (e) {
+      error.value = e?.message || 'Не удалось загрузить профиль'
+    } finally {
+      loading.value = false
+    }
+  })
+  </script>
+  
