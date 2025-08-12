@@ -5,11 +5,7 @@
           <li>{{ auth.user.name }}</li>
           <li><router-link to="/profile">Профиль</router-link></li>
           <li><router-link to="/dashboard">Доска</router-link></li>
-          <li><button @click="logout">Выйти</button></li>
-        </template>
-  
-        <template v-else>
-          <li><router-link to="/login">Авторизация</router-link></li>
+          <li><router-link to="/login" @click.native.prevent="logout">Выйти</router-link></li>
         </template>
       </ul>
     </nav>
@@ -20,6 +16,7 @@
   
   function logout() {
     auth.logout()
+    router.push('/login')
   }
   </script>
   
