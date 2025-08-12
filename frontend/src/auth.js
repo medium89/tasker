@@ -25,6 +25,25 @@ export async function fetchUser() {
   return res.json()
 }
 
+export async function updateUser(data) {
+  const xsrf = getCookie('XSRF-TOKEN')
+  const res = await fetch('/user', {
+    method: 'PUT',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'X-XSRF-TOKEN': xsrf,
+    },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || 'Не удалось обновить профиль')
+  }
+  return res.json()
+}
+
 export async function login(email, password) {
   await getCsrf()
   const xsrf = getCookie('XSRF-TOKEN')
@@ -59,4 +78,17 @@ export async function logout() {
     },
   })
   if (!res.ok) throw new Error('Не удалось выйти')
+}
+
+export async function deleteUser() {
+  const xsrf = getCookie('XSRF-TOKEN')
+  const res = await fetch('/user', {
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+      'X-XSRF-TOKEN': xsrf,
+    },
+  })
+  if (!res.ok) throw new Error('Не удалось удалить аккаунт')
 }
