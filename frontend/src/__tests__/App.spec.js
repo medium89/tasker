@@ -8,7 +8,7 @@ describe('App', () => {
   it('renders routed view under navbar', async () => {
     vi.spyOn(auth, 'getUser').mockResolvedValue()
 
-    router.push('/auth')
+    router.push('/login')
     await router.isReady()
 
     const wrapper = mount(App, {
