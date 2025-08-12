@@ -16,7 +16,10 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'status' => 'required|in:backlog,todo,doing,done',
+            'priority' => 'required|in:low,normal,high,urgent',
+            'due_date' => 'nullable|date',
         ]);
 
         $task = Task::create($validated);
@@ -27,7 +30,10 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'status' => 'required|in:backlog,todo,doing,done',
+            'priority' => 'required|in:low,normal,high,urgent',
+            'due_date' => 'nullable|date',
         ]);
 
         $task->update($validated);
