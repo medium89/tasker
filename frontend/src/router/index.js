@@ -6,6 +6,7 @@ const router = createRouter({
   routes: [
     { path: '/', redirect: '/login' },
     { path: '/login', name: 'login', component: LoginView },
+    { path: '/auth', redirect: '/login' },
     {
       path: '/dashboard',
       name: 'dashboard',
@@ -29,7 +30,9 @@ router.beforeEach(async (to, from, next) => {
       headers: { Accept: 'application/json' }
     })
     if (res.ok) return next()
-  } catch (_) {}
+  } catch {
+    // ignore
+  }
   next('/login')
 })
 
