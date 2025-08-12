@@ -29,7 +29,7 @@ export async function login(email, password) {
   await getCsrf()
   const xsrf = getCookie('XSRF-TOKEN')
 
-  const res = await fetch('/api/login', {
+  const res = await fetch('/auth', {
     method: 'POST',
     credentials: 'include',
     headers: {

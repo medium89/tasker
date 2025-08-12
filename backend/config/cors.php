@@ -8,17 +8,14 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    return [
-        'paths' => ['api/*', 'login', 'logout', 'sanctum/csrf-cookie', 'user'],
-        'allowed_methods' => ['*'],
-        'allowed_origins' => ['*'], // для теста, потом можно ограничить
-        'allowed_origins_patterns' => [],
-        'allowed_headers' => ['*'],
-        'exposed_headers' => [],
-        'max_age' => 0,
-        'supports_credentials' => true,
-    ];
-    
+    'paths' => [
+        'api/*',
+        'login',
+        'logout',
+        'register',
+        'user',
+        'sanctum/csrf-cookie',
+    ],
 
     'allowed_methods' => ['*'],
 

@@ -25,11 +25,14 @@ export default defineConfig(({ mode }) => {
       hmr: { host: hmrHost, port: hmrPort, protocol: hmrProtocol },
       proxy: {
         '/api': apiUrl, // Laravel контейнер
-        '/login': apiUrl,
+        '/auth': apiUrl,
         '/logout': apiUrl,
         '/sanctum': apiUrl,
         '/user': apiUrl
       },
+      hmr: {
+        overlay: true // Показывает красное окно с ошибкой в браузере
+      }
     },
   }
 })

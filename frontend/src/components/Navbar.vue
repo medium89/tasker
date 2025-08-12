@@ -1,44 +1,39 @@
-<!-- Navbar.vue -->
 <template>
-    <nav style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid #eee;">
-      <div style="font-weight:600;">Tasker</div>
-      <div>
-        <template v-if="loading">Проверяем вход…</template>
-        <template v-else-if="user">
-          Привет, {{ user.name }}
-          <button @click="onLogout" style="margin-left: 8px; text-decoration: underline;">Выйти</button>
+    <nav class="navbar">
+      <ul>
+        <template v-if="auth.user">
+          <li>{{ auth.user.name }}</li>
+          <li><router-link to="/profile">Профиль</router-link></li>
+          <li><router-link to="/dashboard">Доска</router-link></li>
+          <li><button @click="logout">Выйти</button></li>
         </template>
+  
         <template v-else>
-          <router-link to="/login">Войти</router-link>
+          <li><router-link to="/auth">Авторизация</router-link></li>
         </template>
-      </div>
+      </ul>
     </nav>
   </template>
   
   <script setup>
-  import { ref, onMounted } from 'vue';
-  import { fetchUser, logout } from '@/auth';
-  import { useRouter } from 'vue-router';
+  import { auth } from '../store/auth.js'
   
-  const router = useRouter();
-  const user = ref(null);
-  const loading = ref(true);
-  
-  async function load() {
-    loading.value = true;
-    try {
-      user.value = await fetchUser();
-    } finally {
-      loading.value = false;
-    }
+  function logout() {
+    auth.logout()
   }
-  
-  async function onLogout() {
-    await logout();
-    user.value = null;
-    router.replace('/login');
-  }
-  
-  onMounted(load);
   </script>
+  
+  <style>
+  .navbar {
+    background: #eee;
+    padding: 10px;
+  }
+  .navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
   

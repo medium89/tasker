@@ -7,43 +7,36 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function myTasks(Request $request)
+    public function index()
     {
-        return Task::with(['comments.user','users'])
-            ->whereHas('users', fn($q) => $q->where('users.id', $request->user()->id))
-            ->orderByDesc('id')
-            ->get();
+        return Task::all();
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'description' => 'nullable|string'
         ]);
 
-        $task = Task::create($data);
-        $task->users()->attach($request->user()->id);
-
-        return $task;
+        $task = Task::create($validated);
+        return response()->json($task, 201);
     }
 
     public function update(Request $request, Task $task)
     {
-        // Здесь можно добавить проверку прав
-        $data = $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'description' => 'nullable|string'
         ]);
 
-        $task->update($data);
-
-        return $task;
+        $task->update($validated);
+        return response()->json($task);
     }
 
     public function destroy(Task $task)
     {
-        // Здесь можно добавить проверку прав
         $task->delete();
-
-        return response()->noContent();
+        return response()->json(null, 204);
     }
 }
