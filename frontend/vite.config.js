@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
       hmr: { host: hmrHost, port: hmrPort, protocol: hmrProtocol },
       proxy: {
         '/api': apiUrl, // Laravel контейнер
-        '/auth': apiUrl,
+        '/login': apiUrl,
         '/logout': apiUrl,
         '/sanctum': apiUrl,
         '/user': apiUrl

@@ -9,7 +9,7 @@
         </template>
   
         <template v-else>
-          <li><router-link to="/auth">Авторизация</router-link></li>
+          <li><router-link to="/login">Авторизация</router-link></li>
         </template>
       </ul>
     </nav>

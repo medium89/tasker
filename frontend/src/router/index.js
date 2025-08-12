@@ -4,8 +4,8 @@ import LoginView from '@/views/LoginView.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', redirect: '/auth' },
-    { path: '/auth', name: 'auth', component: LoginView },
+    { path: '/', redirect: '/login' },
+    { path: '/login', name: 'login', component: LoginView },
     {
       path: '/dashboard',
       name: 'dashboard',
@@ -30,7 +30,7 @@ router.beforeEach(async (to, from, next) => {
     })
     if (res.ok) return next()
   } catch (_) {}
-  next('/auth')
+  next('/login')
 })
 
 export default router

@@ -9,7 +9,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { fetchUser, logout } from './auth'
+import { fetchUser, logout } from './login'
 
 const user = ref(null)
 const loading = ref(true)
