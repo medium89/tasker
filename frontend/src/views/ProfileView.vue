@@ -131,16 +131,19 @@
       }
 
       async function onDelete() {
-        if (!confirm('Вы уверены, что хотите удалить аккаунт?')) return
+        if (
+          !confirm('Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.')
+        )
+          return
         deleting.value = true
         try {
           await deleteUser()
-        router.push('/login')
-      } catch (e) {
-        error.value = e?.message || 'Не удалось удалить аккаунт'
-      } finally {
-        deleting.value = false
+          router.push('/login')
+        } catch (e) {
+          error.value = e?.message || 'Не удалось удалить аккаунт'
+        } finally {
+          deleting.value = false
+        }
       }
-    }
     </script>
   

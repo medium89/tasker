@@ -198,6 +198,7 @@ async function updateTask(task) {
 }
 
 async function deleteTask(id) {
+  if (!confirm('Вы уверены, что хотите удалить задачу?')) return
   error.value = ''
   loading.value = true
   try {
