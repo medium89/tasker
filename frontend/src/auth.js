@@ -44,6 +44,28 @@ export async function updateUser(data) {
   return res.json()
 }
 
+export async function updatePassword(password, passwordConfirmation) {
+  const xsrf = getCookie('XSRF-TOKEN')
+  const res = await fetch('/user/password', {
+    method: 'PUT',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'X-XSRF-TOKEN': xsrf,
+    },
+    body: JSON.stringify({
+      password,
+      password_confirmation: passwordConfirmation,
+    }),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.message || 'Не удалось обновить пароль')
+  }
+  return res.json()
+}
+
 export async function login(email, password) {
   await getCsrf()
   const xsrf = getCookie('XSRF-TOKEN')
