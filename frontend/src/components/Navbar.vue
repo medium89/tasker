@@ -17,16 +17,16 @@
   
   <script setup>
    
-  import { auth } from '../store/auth.js'
-  
-  import { useRouter } from 'vue-router'
-  const router = useRouter()
+import { auth } from '../store/auth.js'
+
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 
-  function logout() {
-    auth.logout()
-    router.push('/login')
-  }
+async function logout() {
+  await auth.logout()
+  router.push('/login')
+}
   </script>
   
   <style>
