@@ -3,7 +3,7 @@
     <section style="max-width: 600px; margin: 32px auto; padding: 16px;">
       <h1 style="font-size: 22px; font-weight: 700; margin-bottom: 16px;">Профиль</h1>
   
-    <div v-if="loading">Загружаем профиль…</div>
+    <div v-if="loading">Загрузка профиля…</div>
     <div v-else>
       <div v-if="error" style="color:#d00; margin-bottom:8px;">{{ error }}</div>
       <div v-if="user">
@@ -20,10 +20,10 @@
               <input v-model="form.email" type="email" />
             </label>
           </div>
-          <button type="submit" :disabled="saving">Сохранить</button>
+          <button type="submit" :disabled="saving">{{ saving ? 'Загрузка…' : 'Сохранить' }}</button>
         </form>
         <p><strong>Создан:</strong> {{ new Date(user.created_at).toLocaleString() }}</p>
-        <button @click="onDelete" style="margin-top:16px;color:#d00">Удалить аккаунт</button>
+        <button @click="onDelete" :disabled="deleting" style="margin-top:16px;color:#d00">{{ deleting ? 'Загрузка…' : 'Удалить аккаунт' }}</button>
       </div>
     </div>
     </section>
@@ -39,6 +39,7 @@
     const form = reactive({ name: '', email: '' })
     const loading = ref(true)
     const saving = ref(false)
+    const deleting = ref(false)
     const error = ref('')
 
     onMounted(async () => {
@@ -70,11 +71,14 @@
 
     async function onDelete() {
       if (!confirm('Вы уверены, что хотите удалить аккаунт?')) return
+      deleting.value = true
       try {
         await deleteUser()
         router.push('/login')
       } catch (e) {
         error.value = e?.message || 'Не удалось удалить аккаунт'
+      } finally {
+        deleting.value = false
       }
     }
     </script>

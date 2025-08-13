@@ -15,7 +15,7 @@
 
       <button :disabled="loading"
               style="padding:10px;border-radius:12px">
-        {{ loading ? 'Регистрируем…' : 'Зарегистрироваться' }}
+        {{ loading ? 'Загрузка…' : 'Зарегистрироваться' }}
       </button>
 
       <p v-if="error" style="color:#d00;font-size:13px">{{ error }}</p>

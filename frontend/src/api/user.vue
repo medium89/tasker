@@ -2,7 +2,7 @@
 <!-- UserStatus.vue -->
 <template>
   <div class="text-sm">
-    <template v-if="loading">Проверяем вход…</template>
+    <template v-if="loading">Загрузка…</template>
     <template v-else-if="user">Привет, {{ user.name }} <button @click="onLogout" class="ml-2 underline">Выйти</button></template>
     <template v-else>Вы не авторизованы</template>
   </div>

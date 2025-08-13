@@ -2,6 +2,8 @@
   <div>
     <h2>Все задачи</h2>
 
+    <p v-if="loading">Загрузка...</p>
+
     <form @submit.prevent="addTask">
       <input v-model="newTask.title" placeholder="Название задачи" required />
       <input v-model="newTask.description" placeholder="Описание" />
@@ -18,7 +20,7 @@
         <option value="urgent">urgent</option>
       </select>
       <input type="date" v-model="newTask.due_date" />
-      <button type="submit">Добавить</button>
+      <button type="submit" :disabled="loading">{{ loading ? 'Загрузка…' : 'Добавить' }}</button>
     </form>
 
     <p v-if="error" class="error">{{ error }}</p>
@@ -47,9 +49,9 @@
           <input type="date" v-model="task.due_date" />
         </span>
 
-        <button v-if="!task.editing" @click="task.editing = true">✏️</button>
-        <button v-else @click="updateTask(task)">💾</button>
-        <button @click="deleteTask(task.id)">🗑</button>
+        <button v-if="!task.editing" @click="task.editing = true" :disabled="loading">✏️</button>
+        <button v-else @click="updateTask(task)" :disabled="loading">💾</button>
+        <button @click="deleteTask(task.id)" :disabled="loading">🗑</button>
       </li>
     </ul>
   </div>
@@ -68,20 +70,25 @@ const newTask = ref({
   due_date: '',
 })
 const error = ref('')
+const loading = ref(false)
 
 async function fetchTasks() {
   error.value = ''
+  loading.value = true
   try {
     const { data } = await axios.get('/api/tasks')
     tasks.value = data.map(t => ({ ...t, due_date: t.due_date || '', editing: false }))
   } catch (e) {
     console.error(e)
     error.value = 'Не удалось загрузить задачи'
+  } finally {
+    loading.value = false
   }
 }
 
 async function addTask() {
   error.value = ''
+  loading.value = true
   try {
     const payload = {
       title: newTask.value.title,
@@ -102,11 +109,14 @@ async function addTask() {
   } catch (e) {
     console.error(e)
     error.value = 'Не удалось добавить задачу'
+  } finally {
+    loading.value = false
   }
 }
 
 async function updateTask(task) {
   error.value = ''
+  loading.value = true
   try {
     const { data } = await axios.put(`/api/tasks/${task.id}`, {
       title: task.title,
@@ -122,17 +132,22 @@ async function updateTask(task) {
   } catch (e) {
     console.error(e)
     error.value = 'Не удалось обновить задачу'
+  } finally {
+    loading.value = false
   }
 }
 
 async function deleteTask(id) {
   error.value = ''
+  loading.value = true
   try {
     await axios.delete(`/api/tasks/${id}`)
     tasks.value = tasks.value.filter(t => t.id !== id)
   } catch (e) {
     console.error(e)
     error.value = 'Не удалось удалить задачу'
+  } finally {
+    loading.value = false
   }
 }
 
