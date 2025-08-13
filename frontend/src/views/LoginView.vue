@@ -1,7 +1,7 @@
 <!-- src/views/LoginVue.vue -->
 <template>
   <section style="max-width:420px;margin:64px auto;padding:24px;border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,.08)">
-    <h1 style="font-size:20px;font-weight:700;margin-bottom:16px">Вход</h1>
+    <h1 style="font-size:20px;font-weight:700;margin-bottom:16px">Авторизация</h1>
 
     <form @submit.prevent="onSubmit" style="display:grid;gap:12px">
       <input v-model="email" type="email" placeholder="Email" required
