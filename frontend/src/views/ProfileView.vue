@@ -1,50 +1,68 @@
 <!-- ProfileView.vue -->
 <template>
-    <section style="max-width: 600px; margin: 32px auto; padding: 16px;">
-      <h1 style="font-size: 22px; font-weight: 700; margin-bottom: 16px;">Профиль</h1>
-  
-    <div v-if="loading">Загрузка профиля…</div>
+  <section
+    style="max-width: 600px; margin: 32px auto; padding: 16px;"
+    class="profile"
+  >
+    <h1 style="font-size: 22px; font-weight: 700; margin-bottom: 16px;" class="profile__title">
+      Профиль
+    </h1>
+
+    <div v-if="loading" class="profile__loading">Загрузка профиля…</div>
     <div v-else>
-      <div v-if="error" style="color:#d00; margin-bottom:8px;">{{ error }}</div>
-      <div v-if="user">
-          <form @submit.prevent="onSave" style="margin-bottom:8px;">
-            <div style="margin-bottom:8px;">
-              <label>
-                Имя:
-                <input v-model="form.name" type="text" />
-              </label>
-            </div>
-            <div style="margin-bottom:8px;">
-              <label>
-                Email:
-                <input v-model="form.email" type="email" />
-              </label>
-            </div>
-            <button type="submit" :disabled="saving">{{ saving ? 'Загрузка…' : 'Сохранить' }}</button>
-          </form>
+      <div v-if="error" style="color:#d00; margin-bottom:8px;" class="profile__error">{{ error }}</div>
+      <div v-if="user" class="profile__content">
+        <form @submit.prevent="onSave" style="margin-bottom:8px;" class="profile__form">
+          <div style="margin-bottom:8px;" class="profile__field">
+            <label class="profile__label">
+              Имя:
+              <input v-model="form.name" type="text" class="profile__input" />
+            </label>
+          </div>
+          <div style="margin-bottom:8px;" class="profile__field">
+            <label class="profile__label">
+              Email:
+              <input v-model="form.email" type="email" class="profile__input" />
+            </label>
+          </div>
+          <button type="submit" :disabled="saving" class="profile__save">
+            {{ saving ? 'Загрузка…' : 'Сохранить' }}
+          </button>
+        </form>
 
-          <form @submit.prevent="onSavePassword" style="margin-bottom:8px;">
-            <div style="margin-bottom:8px;">
-              <label>
-                Пароль:
-                <input v-model="passwordForm.password" type="password" />
-              </label>
-            </div>
-            <div style="margin-bottom:8px;">
-              <label>
-                Подтверждение пароля:
-                <input v-model="passwordForm.passwordConfirmation" type="password" />
-              </label>
-            </div>
-            <button type="submit" :disabled="savingPassword">{{ savingPassword ? 'Загрузка…' : 'Обновить пароль' }}</button>
-          </form>
+        <form @submit.prevent="onSavePassword" style="margin-bottom:8px;" class="profile__password-form">
+          <div style="margin-bottom:8px;" class="profile__field">
+            <label class="profile__label">
+              Пароль:
+              <input v-model="passwordForm.password" type="password" class="profile__input" />
+            </label>
+          </div>
+          <div style="margin-bottom:8px;" class="profile__field">
+            <label class="profile__label">
+              Подтверждение пароля:
+              <input v-model="passwordForm.passwordConfirmation" type="password" class="profile__input" />
+            </label>
+          </div>
+          <button type="submit" :disabled="savingPassword" class="profile__password-save">
+            {{ savingPassword ? 'Загрузка…' : 'Обновить пароль' }}
+          </button>
+        </form>
 
-          <p><strong>Создан:</strong> {{ new Date(user.created_at).toLocaleString() }}</p>
-          <button @click="onDelete" :disabled="deleting" style="margin-top:16px;color:#d00">{{ deleting ? 'Загрузка…' : 'Удалить аккаунт' }}</button>
-        </div>
+        <p class="profile__created">
+          <strong>Создан:</strong> {{ new Date(user.created_at).toLocaleString() }}
+        </p>
+        <button
+          @click="onDelete"
+          :disabled="deleting"
+          style="margin-top:16px;color:#d00"
+          class="profile__delete"
+        >
+          {{ deleting ? 'Загрузка…' : 'Удалить аккаунт' }}
+        </button>
       </div>
-      </section>
-      </template>
+    </div>
+  </section>
+</template>
 
     <script setup>
       import { ref, reactive, onMounted } from 'vue'

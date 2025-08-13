@@ -1,28 +1,60 @@
 <!-- src/views/RegisterView.vue -->
 <template>
-  <section style="max-width:420px;margin:64px auto;padding:24px;border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,.08)">
-    <h1 style="font-size:20px;font-weight:700;margin-bottom:16px">Регистрация</h1>
+  <section
+    style="max-width:420px;margin:64px auto;padding:24px;border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,.08)"
+    class="register"
+  >
+    <h1 style="font-size:20px;font-weight:700;margin-bottom:16px" class="register__title">
+      Регистрация
+    </h1>
 
-    <form @submit.prevent="onSubmit" style="display:grid;gap:12px">
-      <input v-model="name" type="text" placeholder="Имя" required
-             style="padding:10px;border:1px solid #ddd;border-radius:10px" />
-      <input v-model="email" type="email" placeholder="Email" required
-             style="padding:10px;border:1px solid #ddd;border-radius:10px" />
-      <input v-model="password" type="password" placeholder="Пароль" required
-             style="padding:10px;border:1px solid #ddd;border-radius:10px" />
-      <input v-model="passwordConfirm" type="password" placeholder="Пароль ещё раз" required
-             style="padding:10px;border:1px solid #ddd;border-radius:10px" />
+    <form @submit.prevent="onSubmit" style="display:grid;gap:12px" class="register__form">
+      <input
+        v-model="name"
+        type="text"
+        placeholder="Имя"
+        required
+        style="padding:10px;border:1px solid #ddd;border-radius:10px"
+        class="register__input register__input--name"
+      />
+      <input
+        v-model="email"
+        type="email"
+        placeholder="Email"
+        required
+        style="padding:10px;border:1px solid #ddd;border-radius:10px"
+        class="register__input register__input--email"
+      />
+      <input
+        v-model="password"
+        type="password"
+        placeholder="Пароль"
+        required
+        style="padding:10px;border:1px solid #ddd;border-radius:10px"
+        class="register__input register__input--password"
+      />
+      <input
+        v-model="passwordConfirm"
+        type="password"
+        placeholder="Пароль ещё раз"
+        required
+        style="padding:10px;border:1px solid #ddd;border-radius:10px"
+        class="register__input register__input--password-confirm"
+      />
 
-      <button :disabled="loading"
-              style="padding:10px;border-radius:12px">
+      <button
+        :disabled="loading"
+        style="padding:10px;border-radius:12px"
+        class="register__submit"
+      >
         {{ loading ? 'Загрузка…' : 'Зарегистрироваться' }}
       </button>
 
-      <p v-if="error" style="color:#d00;font-size:13px">{{ error }}</p>
+      <p v-if="error" style="color:#d00;font-size:13px" class="register__error">{{ error }}</p>
     </form>
-    <p style="margin-top:8px;font-size:14px;text-align:center">
+    <p style="margin-top:8px;font-size:14px;text-align:center" class="register__login">
       Уже есть аккаунт?
-      <RouterLink to="/login">Войти</RouterLink>
+      <RouterLink to="/login" class="register__login-link">Войти</RouterLink>
     </p>
   </section>
 </template>

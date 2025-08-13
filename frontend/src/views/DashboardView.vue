@@ -1,57 +1,82 @@
 <template>
-  <div>
-    <h2>Все задачи</h2>
+  <div class="dashboard">
+    <h2 class="dashboard__title">Все задачи</h2>
 
-    <p v-if="loading">Загрузка...</p>
+    <p v-if="loading" class="dashboard__loading">Загрузка...</p>
 
-    <form @submit.prevent="addTask">
-      <input v-model="newTask.title" placeholder="Название задачи" required />
-      <input v-model="newTask.description" placeholder="Описание" />
-      <select v-model="newTask.status" required>
+    <form @submit.prevent="addTask" class="task-form">
+      <input
+        v-model="newTask.title"
+        placeholder="Название задачи"
+        required
+        class="task-form__title"
+      />
+      <input
+        v-model="newTask.description"
+        placeholder="Описание"
+        class="task-form__description"
+      />
+      <select v-model="newTask.status" required class="task-form__status">
         <option value="backlog">backlog</option>
         <option value="todo">todo</option>
         <option value="doing">doing</option>
         <option value="done">done</option>
       </select>
-      <select v-model="newTask.priority" required>
+      <select v-model="newTask.priority" required class="task-form__priority">
         <option value="low">low</option>
         <option value="normal">normal</option>
         <option value="high">high</option>
         <option value="urgent">urgent</option>
       </select>
-      <input type="date" v-model="newTask.due_date" />
-      <button type="submit" :disabled="loading">{{ loading ? 'Загрузка…' : 'Добавить' }}</button>
+      <input type="date" v-model="newTask.due_date" class="task-form__due-date" />
+      <button type="submit" :disabled="loading" class="task-form__submit">
+        {{ loading ? 'Загрузка…' : 'Добавить' }}
+      </button>
     </form>
 
-    <p v-if="error" class="error">{{ error }}</p>
+    <p v-if="error" class="dashboard__error error">{{ error }}</p>
 
-    <ul>
-      <li v-for="task in tasks" :key="task.id">
-        <span v-if="!task.editing">
+    <ul class="task-list">
+      <li v-for="task in tasks" :key="task.id" class="task-item">
+        <span v-if="!task.editing" class="task-item__text">
           {{ task.title }} — {{ task.description }} — {{ task.status }} —
           {{ task.priority }} — {{ task.due_date }}
         </span>
-        <span v-else>
-          <input v-model="task.title" />
-          <input v-model="task.description" />
-          <select v-model="task.status">
+        <span v-else class="task-item__edit-fields">
+          <input v-model="task.title" class="task-item__title" />
+          <input v-model="task.description" class="task-item__description" />
+          <select v-model="task.status" class="task-item__status">
             <option value="backlog">backlog</option>
             <option value="todo">todo</option>
             <option value="doing">doing</option>
             <option value="done">done</option>
           </select>
-          <select v-model="task.priority">
+          <select v-model="task.priority" class="task-item__priority">
             <option value="low">low</option>
             <option value="normal">normal</option>
             <option value="high">high</option>
             <option value="urgent">urgent</option>
           </select>
-          <input type="date" v-model="task.due_date" />
+          <input type="date" v-model="task.due_date" class="task-item__due-date" />
         </span>
 
-        <button v-if="!task.editing" @click="task.editing = true" :disabled="loading">✏️</button>
-        <button v-else @click="updateTask(task)" :disabled="loading">💾</button>
-        <button @click="deleteTask(task.id)" :disabled="loading">🗑</button>
+        <button
+          v-if="!task.editing"
+          @click="task.editing = true"
+          :disabled="loading"
+          class="task-item__edit"
+        >Редактировать</button>
+        <button
+          v-else
+          @click="updateTask(task)"
+          :disabled="loading"
+          class="task-item__save"
+        >💾</button>
+        <button
+          @click="deleteTask(task.id)"
+          :disabled="loading"
+          class="task-item__delete"
+        >Удалить</button>
       </li>
     </ul>
   </div>
