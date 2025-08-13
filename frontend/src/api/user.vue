@@ -3,7 +3,7 @@
 <template>
   <div>
     <template v-if="loading">Загрузка…</template>
-    <template v-else-if="user">Привет, {{ user.name }} <button @click="onLogout">Выйти</button></template>
+    <template v-else-if="user">Привет, {{ user.name }} <button @click="onLogout" class="btn btn-secondary">Выйти</button></template>
     <template v-else>Вы не авторизованы</template>
   </div>
 </template>

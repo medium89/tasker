@@ -9,21 +9,21 @@
       <div v-if="user" class="profile__content">
         <form @submit.prevent="onSave" class="profile__form profile__form--info">
           <div class="profile__field">
-            <label>
+            <label class="form-label">
               Имя:
-              <input v-model="form.name" type="text" class="profile__input profile__input--name" />
+              <input v-model="form.name" type="text" class="form-control profile__input profile__input--name" />
             </label>
           </div>
           <div class="profile__field">
-            <label>
+            <label class="form-label">
               Email:
-              <input v-model="form.email" type="email" class="profile__input profile__input--email" />
+              <input v-model="form.email" type="email" class="form-control profile__input profile__input--email" />
             </label>
           </div>
           <button
             type="submit"
             :disabled="saving"
-            class="profile__button profile__button--save"
+            class="btn btn-primary profile__button profile__button--save"
           >
             {{ saving ? 'Загрузка…' : 'Сохранить' }}
           </button>
@@ -31,29 +31,29 @@
 
         <form @submit.prevent="onSavePassword" class="profile__form profile__form--password">
           <div class="profile__field">
-            <label>
+            <label class="form-label">
               Пароль:
               <input
                 v-model="passwordForm.password"
                 type="password"
-                class="profile__input profile__input--password"
+                class="form-control profile__input profile__input--password"
               />
             </label>
           </div>
           <div class="profile__field">
-            <label>
+            <label class="form-label">
               Подтверждение пароля:
               <input
                 v-model="passwordForm.passwordConfirmation"
                 type="password"
-                class="profile__input profile__input--password-confirmation"
+                class="form-control profile__input profile__input--password-confirmation"
               />
             </label>
           </div>
           <button
             type="submit"
             :disabled="savingPassword"
-            class="profile__button profile__button--update-password"
+            class="btn btn-warning profile__button profile__button--update-password"
           >
             {{ savingPassword ? 'Загрузка…' : 'Обновить пароль' }}
           </button>
@@ -65,7 +65,7 @@
         <button
           @click="onDelete"
           :disabled="deleting"
-          class="profile__button profile__button--delete"
+          class="btn btn-danger profile__button profile__button--delete"
         >
           {{ deleting ? 'Загрузка…' : 'Удалить аккаунт' }}
         </button>

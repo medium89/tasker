@@ -9,17 +9,17 @@
         type="email"
         placeholder="Email"
         required
-        class="login__input login__input--email"
+        class="form-control login__input login__input--email"
       />
       <input
         v-model="password"
         type="password"
         placeholder="Пароль"
         required
-        class="login__input login__input--password"
+        class="form-control login__input login__input--password"
       />
 
-      <button :disabled="loading" class="login__button">
+      <button :disabled="loading" class="btn btn-primary login__button">
         {{ loading ? 'Загрузка…' : 'Войти' }}
       </button>
 
