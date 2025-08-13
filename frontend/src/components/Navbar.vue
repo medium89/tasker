@@ -27,6 +27,27 @@ async function logout() {
   await auth.logout()
   router.push('/login')
 }
-  </script>
+</script>
+
+<style scoped>
+.navbar {
+  width: 200px;
+  min-height: 100vh;
+  padding: 1rem;
+  background: #f0f0f0;
+}
+
+.navbar__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navbar__item {
+}
+</style>
   
   
