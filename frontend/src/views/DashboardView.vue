@@ -23,7 +23,7 @@
       <button type="submit" :disabled="loading">{{ loading ? 'Загрузка…' : 'Добавить' }}</button>
     </form>
 
-    <p v-if="error" class="error">{{ error }}</p>
+    <p v-if="error">{{ error }}</p>
 
     <ul>
       <li v-for="task in tasks" :key="task.id">
@@ -154,8 +154,3 @@ async function deleteTask(id) {
 onMounted(fetchTasks)
 </script>
 
-<style>
-.error {
-  color: #d00;
-}
-</style>

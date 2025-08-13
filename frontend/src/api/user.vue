@@ -1,9 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <!-- UserStatus.vue -->
 <template>
-  <div class="text-sm">
+  <div>
     <template v-if="loading">Загрузка…</template>
-    <template v-else-if="user">Привет, {{ user.name }} <button @click="onLogout" class="ml-2 underline">Выйти</button></template>
+    <template v-else-if="user">Привет, {{ user.name }} <button @click="onLogout">Выйти</button></template>
     <template v-else>Вы не авторизованы</template>
   </div>
 </template>
