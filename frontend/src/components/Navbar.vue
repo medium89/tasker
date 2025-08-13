@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <nav class="navbar">
       <ul>
@@ -15,6 +16,7 @@
   </template>
   
   <script setup>
+   
   import { auth } from '../store/auth.js'
   
   import { useRouter } from 'vue-router'
