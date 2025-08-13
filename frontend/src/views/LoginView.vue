@@ -1,19 +1,31 @@
 <!-- src/views/LoginVue.vue -->
 <template>
-  <section>
-    <h1>Авторизация</h1>
+  <section class="login">
+    <h1 class="login__title">Авторизация</h1>
 
-    <form @submit.prevent="onSubmit">
-      <input v-model="email" type="email" placeholder="Email" required />
-      <input v-model="password" type="password" placeholder="Пароль" required />
+    <form @submit.prevent="onSubmit" class="login__form">
+      <input
+        v-model="email"
+        type="email"
+        placeholder="Email"
+        required
+        class="login__input login__input--email"
+      />
+      <input
+        v-model="password"
+        type="password"
+        placeholder="Пароль"
+        required
+        class="login__input login__input--password"
+      />
 
-      <button :disabled="loading">
+      <button :disabled="loading" class="login__button">
         {{ loading ? 'Загрузка…' : 'Войти' }}
       </button>
 
-      <p v-if="error">{{ error }}</p>
+      <p v-if="error" class="login__error">{{ error }}</p>
     </form>
-    <p>
+    <p class="login__register">
       Нет аккаунта?
       <RouterLink to="/register">Регистрация</RouterLink>
     </p>

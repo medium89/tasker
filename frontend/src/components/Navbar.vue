@@ -1,19 +1,19 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <nav>
-      <ul>
-        <template v-if="auth.user">
-          <li>{{ auth.user.name }}</li>
-          <li><router-link to="/profile">Профиль</router-link></li>
-          <li><router-link to="/dashboard">Доска</router-link></li>
-          <li><a href="#" @click.prevent="logout">Выйти</a></li>
-        </template>
-        <template v-else>
-          <li><router-link to="/register">Регистрация</router-link></li>
-        </template>
-      </ul>
-    </nav>
-  </template>
+  <nav class="navbar">
+    <ul class="navbar__list">
+      <template v-if="auth.user">
+        <li class="navbar__item">{{ auth.user.name }}</li>
+        <li class="navbar__item"><router-link to="/profile">Профиль</router-link></li>
+        <li class="navbar__item"><router-link to="/dashboard">Доска</router-link></li>
+        <li class="navbar__item"><a href="#" @click.prevent="logout">Выйти</a></li>
+      </template>
+      <template v-else>
+        <li class="navbar__item"><router-link to="/register">Регистрация</router-link></li>
+      </template>
+    </ul>
+  </nav>
+</template>
   
   <script setup>
    
