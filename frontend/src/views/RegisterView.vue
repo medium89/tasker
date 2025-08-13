@@ -1,21 +1,45 @@
 <!-- src/views/RegisterView.vue -->
 <template>
-  <section>
-    <h1>Регистрация</h1>
+  <section class="register">
+    <h1 class="register__title">Регистрация</h1>
 
-    <form @submit.prevent="onSubmit">
-      <input v-model="name" type="text" placeholder="Имя" required />
-      <input v-model="email" type="email" placeholder="Email" required />
-      <input v-model="password" type="password" placeholder="Пароль" required />
-      <input v-model="passwordConfirm" type="password" placeholder="Пароль ещё раз" required />
+    <form @submit.prevent="onSubmit" class="register__form">
+      <input
+        v-model="name"
+        type="text"
+        placeholder="Имя"
+        required
+        class="register__input register__input--name"
+      />
+      <input
+        v-model="email"
+        type="email"
+        placeholder="Email"
+        required
+        class="register__input register__input--email"
+      />
+      <input
+        v-model="password"
+        type="password"
+        placeholder="Пароль"
+        required
+        class="register__input register__input--password"
+      />
+      <input
+        v-model="passwordConfirm"
+        type="password"
+        placeholder="Пароль ещё раз"
+        required
+        class="register__input register__input--password-confirm"
+      />
 
-      <button :disabled="loading">
+      <button :disabled="loading" class="register__button">
         {{ loading ? 'Загрузка…' : 'Зарегистрироваться' }}
       </button>
 
-      <p v-if="error">{{ error }}</p>
+      <p v-if="error" class="register__error">{{ error }}</p>
     </form>
-    <p>
+    <p class="register__login">
       Уже есть аккаунт?
       <RouterLink to="/login">Войти</RouterLink>
     </p>
