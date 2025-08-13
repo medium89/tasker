@@ -3,13 +3,10 @@
   <nav class="navbar">
     <ul class="navbar__list">
       <template v-if="auth.user">
-        <li class="navbar__item">{{ auth.user.name }}</li>
+        <li class="navbar__item navbar__profile">Привет, {{ auth.user.name }}!</li>
         <li class="navbar__item"><router-link to="/profile">Профиль</router-link></li>
         <li class="navbar__item"><router-link to="/dashboard">Доска</router-link></li>
         <li class="navbar__item"><a href="#" @click.prevent="logout">Выйти</a></li>
-      </template>
-      <template v-else>
-        <li class="navbar__item"><router-link to="/register">Регистрация</router-link></li>
       </template>
     </ul>
   </nav>
@@ -28,26 +25,3 @@ async function logout() {
   router.push('/login')
 }
 </script>
-
-<style scoped>
-.navbar {
-  width: 200px;
-  min-height: 100vh;
-  padding: 1rem;
-  background: #f0f0f0;
-}
-
-.navbar__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.navbar__item {
-}
-</style>
-  
-  

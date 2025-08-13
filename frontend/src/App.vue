@@ -19,15 +19,3 @@ auth.getUser()
 const route = useRoute()
 const showNavbar = computed(() => !['/login', '/register'].includes(route.path))
 </script>
-
-<style>
-.app {
-  display: flex;
-}
-
-.content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-</style>

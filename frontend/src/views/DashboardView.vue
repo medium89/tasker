@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <h2 class="dashboard__title">Все задачи</h2>
+    <h2 class="dashboard__title">Доска</h2>
 
     <p v-if="loading" class="dashboard__loading">Загрузка...</p>
 
@@ -69,29 +69,31 @@
           </div>
         </div>
 
-        <button
-          v-if="!task.editing"
-          @click="task.editing = true"
-          :disabled="loading"
-          class="btn btn-secondary dashboard__button dashboard__button--edit"
-        >
-          Редактировать
-        </button>
-        <button
-          v-else
-          @click="updateTask(task)"
-          :disabled="loading"
-          class="btn btn-primary dashboard__button dashboard__button--save"
-        >
-          Сохранить
-        </button>
-        <button
-          @click="deleteTask(task.id)"
-          :disabled="loading"
-          class="btn btn-danger dashboard__button dashboard__button--delete"
-        >
-          Удалить
-        </button>
+        <div class="dashboard__tasks__actios">
+          <button
+            v-if="!task.editing"
+            @click="task.editing = true"
+            :disabled="loading"
+            class="btn btn-secondary dashboard__button dashboard__button--edit"
+          >
+            Редактировать
+          </button>
+          <button
+            v-else
+            @click="updateTask(task)"
+            :disabled="loading"
+            class="btn btn-primary dashboard__button dashboard__button--save"
+          >
+            Сохранить
+          </button>
+          <button
+            @click="deleteTask(task.id)"
+            :disabled="loading"
+            class="btn btn-danger dashboard__button dashboard__button--delete"
+          >
+            Удалить
+          </button>
+        </div>  
       </div>
     </div>
   </div>
