@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <!-- UserStatus.vue -->
 <template>
   <div class="text-sm">
@@ -8,6 +9,7 @@
 </template>
 
 <script setup>
+ 
 import { ref, onMounted } from 'vue'
 import { fetchUser, logout } from './login'
 

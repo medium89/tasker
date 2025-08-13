@@ -17,7 +17,7 @@ describe('App', () => {
       }
     })
 
-    expect(wrapper.find('h1').text()).toBe('Вход')
+    expect(wrapper.find('h1').text()).toBe('Авторизация')
   })
 })
 

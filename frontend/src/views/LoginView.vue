@@ -27,6 +27,7 @@
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { login } from '@/auth'
+import { auth } from '@/store/auth.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -40,7 +41,8 @@ async function onSubmit() {
   error.value = ''
   loading.value = true
   try {
-    await login(email.value, password.value)
+    const user = await login(email.value, password.value)
+    auth.user = user
     const to = (route.query.redirect && String(route.query.redirect)) || '/dashboard'
     router.replace(to)
   } catch (e) {

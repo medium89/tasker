@@ -31,6 +31,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { register } from '@/auth'
+import { auth } from '@/store/auth.js'
 
 const router = useRouter()
 
@@ -45,7 +46,13 @@ async function onSubmit() {
   error.value = ''
   loading.value = true
   try {
-    await register(name.value, email.value, password.value, passwordConfirm.value)
+    const user = await register(
+      name.value,
+      email.value,
+      password.value,
+      passwordConfirm.value
+    )
+    auth.user = user
     router.replace('/dashboard')
   } catch (e) {
     error.value = e?.message || 'Ошибка регистрации'
