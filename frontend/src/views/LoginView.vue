@@ -1,22 +1,19 @@
 <!-- src/views/LoginVue.vue -->
 <template>
-  <section style="max-width:420px;margin:64px auto;padding:24px;border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,.08)">
-    <h1 style="font-size:20px;font-weight:700;margin-bottom:16px">Авторизация</h1>
+  <section>
+    <h1>Авторизация</h1>
 
-    <form @submit.prevent="onSubmit" style="display:grid;gap:12px">
-      <input v-model="email" type="email" placeholder="Email" required
-             style="padding:10px;border:1px solid #ddd;border-radius:10px" />
-      <input v-model="password" type="password" placeholder="Пароль" required
-             style="padding:10px;border:1px solid #ddd;border-radius:10px" />
+    <form @submit.prevent="onSubmit">
+      <input v-model="email" type="email" placeholder="Email" required />
+      <input v-model="password" type="password" placeholder="Пароль" required />
 
-      <button :disabled="loading"
-              style="padding:10px;border-radius:12px">
+      <button :disabled="loading">
         {{ loading ? 'Загрузка…' : 'Войти' }}
       </button>
 
-      <p v-if="error" style="color:#d00;font-size:13px">{{ error }}</p>
+      <p v-if="error">{{ error }}</p>
     </form>
-    <p style="margin-top:8px;font-size:14px;text-align:center">
+    <p>
       Нет аккаунта?
       <RouterLink to="/register">Регистрация</RouterLink>
     </p>

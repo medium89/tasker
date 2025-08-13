@@ -1,20 +1,20 @@
 <!-- ProfileView.vue -->
 <template>
-    <section style="max-width: 600px; margin: 32px auto; padding: 16px;">
-      <h1 style="font-size: 22px; font-weight: 700; margin-bottom: 16px;">Профиль</h1>
+    <section>
+      <h1>Профиль</h1>
   
     <div v-if="loading">Загрузка профиля…</div>
     <div v-else>
-      <div v-if="error" style="color:#d00; margin-bottom:8px;">{{ error }}</div>
+      <div v-if="error">{{ error }}</div>
       <div v-if="user">
-          <form @submit.prevent="onSave" style="margin-bottom:8px;">
-            <div style="margin-bottom:8px;">
+          <form @submit.prevent="onSave">
+            <div>
               <label>
                 Имя:
                 <input v-model="form.name" type="text" />
               </label>
             </div>
-            <div style="margin-bottom:8px;">
+            <div>
               <label>
                 Email:
                 <input v-model="form.email" type="email" />
@@ -23,14 +23,14 @@
             <button type="submit" :disabled="saving">{{ saving ? 'Загрузка…' : 'Сохранить' }}</button>
           </form>
 
-          <form @submit.prevent="onSavePassword" style="margin-bottom:8px;">
-            <div style="margin-bottom:8px;">
+          <form @submit.prevent="onSavePassword">
+            <div>
               <label>
                 Пароль:
                 <input v-model="passwordForm.password" type="password" />
               </label>
             </div>
-            <div style="margin-bottom:8px;">
+            <div>
               <label>
                 Подтверждение пароля:
                 <input v-model="passwordForm.passwordConfirmation" type="password" />
@@ -40,7 +40,7 @@
           </form>
 
           <p><strong>Создан:</strong> {{ new Date(user.created_at).toLocaleString() }}</p>
-          <button @click="onDelete" :disabled="deleting" style="margin-top:16px;color:#d00">{{ deleting ? 'Загрузка…' : 'Удалить аккаунт' }}</button>
+          <button @click="onDelete" :disabled="deleting">{{ deleting ? 'Загрузка…' : 'Удалить аккаунт' }}</button>
         </div>
       </div>
       </section>
