@@ -53,6 +53,22 @@
       <p v-if="error" style="color:#d00;font-size:13px" class="register__error">{{ error }}</p>
     </form>
     <p style="margin-top:8px;font-size:14px;text-align:center" class="register__login">
+  <section>
+    <h1>Регистрация</h1>
+
+    <form @submit.prevent="onSubmit">
+      <input v-model="name" type="text" placeholder="Имя" required />
+      <input v-model="email" type="email" placeholder="Email" required />
+      <input v-model="password" type="password" placeholder="Пароль" required />
+      <input v-model="passwordConfirm" type="password" placeholder="Пароль ещё раз" required />
+
+      <button :disabled="loading">
+        {{ loading ? 'Загрузка…' : 'Зарегистрироваться' }}
+      </button>
+
+      <p v-if="error">{{ error }}</p>
+    </form>
+    <p>
       Уже есть аккаунт?
       <RouterLink to="/login" class="register__login-link">Войти</RouterLink>
     </p>

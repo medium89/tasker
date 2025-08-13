@@ -59,6 +59,48 @@
         >
           {{ deleting ? 'Загрузка…' : 'Удалить аккаунт' }}
         </button>
+    <section>
+      <h1>Профиль</h1>
+  
+    <div v-if="loading">Загрузка профиля…</div>
+    <div v-else>
+      <div v-if="error">{{ error }}</div>
+      <div v-if="user">
+          <form @submit.prevent="onSave">
+            <div>
+              <label>
+                Имя:
+                <input v-model="form.name" type="text" />
+              </label>
+            </div>
+            <div>
+              <label>
+                Email:
+                <input v-model="form.email" type="email" />
+              </label>
+            </div>
+            <button type="submit" :disabled="saving">{{ saving ? 'Загрузка…' : 'Сохранить' }}</button>
+          </form>
+
+          <form @submit.prevent="onSavePassword">
+            <div>
+              <label>
+                Пароль:
+                <input v-model="passwordForm.password" type="password" />
+              </label>
+            </div>
+            <div>
+              <label>
+                Подтверждение пароля:
+                <input v-model="passwordForm.passwordConfirmation" type="password" />
+              </label>
+            </div>
+            <button type="submit" :disabled="savingPassword">{{ savingPassword ? 'Загрузка…' : 'Обновить пароль' }}</button>
+          </form>
+
+          <p><strong>Создан:</strong> {{ new Date(user.created_at).toLocaleString() }}</p>
+          <button @click="onDelete" :disabled="deleting">{{ deleting ? 'Загрузка…' : 'Удалить аккаунт' }}</button>
+        </div>
       </div>
     </div>
   </section>
