@@ -22,16 +22,19 @@ export default defineConfig(({ mode }) => {
       host: true,
       port: serverPort,
       strictPort: true,
-      hmr: { host: hmrHost, port: hmrPort, protocol: hmrProtocol },
+      hmr: {
+        host: hmrHost,
+        port: hmrPort,
+        protocol: hmrProtocol,
+        overlay: true // Показывает красное окно с ошибкой в браузере
+      },
       proxy: {
         '/api': apiUrl, // Laravel контейнер
         '/login': apiUrl,
         '/logout': apiUrl,
+        '/register': apiUrl,
         '/sanctum': apiUrl,
         '/user': apiUrl
-      },
-      hmr: {
-        overlay: true // Показывает красное окно с ошибкой в браузере
       }
     },
   }
