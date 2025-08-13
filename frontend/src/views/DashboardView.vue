@@ -34,28 +34,40 @@
 
     <p v-if="error" class="dashboard__error">{{ error }}</p>
 
-    <ul class="dashboard__tasks">
-      <li v-for="task in tasks" :key="task.id" class="dashboard__task">
-        <span v-if="!task.editing" class="dashboard__task-view">
-          {{ task.title }} — {{ task.description }} —
-          {{ statusLabel(task.status) }} —
-          {{ priorityLabel(task.priority) }} — {{ task.due_date }}
-        </span>
-        <span v-else class="dashboard__task-edit">
-          <input v-model="task.title" class="dashboard__input dashboard__input--title" />
-          <input v-model="task.description" class="dashboard__input dashboard__input--description" />
-          <select v-model="task.status" class="dashboard__select dashboard__select--status">
-            <option v-for="opt in statusOptions" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </option>
-          </select>
-          <select v-model="task.priority" class="dashboard__select dashboard__select--priority">
-            <option v-for="opt in priorityOptions" :key="opt.value" :value="opt.value">
-              {{ opt.label }}
-            </option>
-          </select>
-          <input type="date" v-model="task.due_date" class="dashboard__input dashboard__input--date" />
-        </span>
+    <div class="dashboard__tasks">
+      <div v-for="task in tasks" :key="task.id" class="dashboard__task">
+        <div v-if="!task.editing" class="dashboard__task-view">
+          <div class="dashboard__task-title">{{ task.title }}</div>
+          <div class="dashboard__task-description">{{ task.description }}</div>
+          <div class="dashboard__task-status">{{ statusLabel(task.status) }}</div>
+          <div class="dashboard__task-priority">{{ priorityLabel(task.priority) }}</div>
+          <div class="dashboard__task-date">{{ task.due_date }}</div>
+        </div>
+        <div v-else class="dashboard__task-edit">
+          <div class="dashboard__task-title">
+            <input v-model="task.title" class="dashboard__input dashboard__input--title" />
+          </div>
+          <div class="dashboard__task-description">
+            <input v-model="task.description" class="dashboard__input dashboard__input--description" />
+          </div>
+          <div class="dashboard__task-status">
+            <select v-model="task.status" class="dashboard__select dashboard__select--status">
+              <option v-for="opt in statusOptions" :key="opt.value" :value="opt.value">
+                {{ opt.label }}
+              </option>
+            </select>
+          </div>
+          <div class="dashboard__task-priority">
+            <select v-model="task.priority" class="dashboard__select dashboard__select--priority">
+              <option v-for="opt in priorityOptions" :key="opt.value" :value="opt.value">
+                {{ opt.label }}
+              </option>
+            </select>
+          </div>
+          <div class="dashboard__task-date">
+            <input type="date" v-model="task.due_date" class="dashboard__input dashboard__input--date" />
+          </div>
+        </div>
 
         <button
           v-if="!task.editing"
@@ -80,8 +92,8 @@
         >
           Удалить
         </button>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 
