@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 
@@ -19,6 +21,16 @@ Route::middleware('auth:sanctum')->put('/user', function (Request $request) {
     $user = $request->user();
     $user->update($request->only(['name', 'email']));
     return $user;
+});
+Route::middleware('auth:sanctum')->put('/user/password', function (Request $request) {
+    $data = $request->validate([
+        'password' => ['required', 'confirmed', Password::min(8)],
+    ]);
+    $user = $request->user();
+    $user->update([
+        'password' => Hash::make($data['password']),
+    ]);
+    return response()->json(['message' => 'Password updated']);
 });
 Route::middleware('auth:sanctum')->delete('/user', function (Request $request) {
     $user = $request->user();
