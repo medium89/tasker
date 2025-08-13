@@ -7,27 +7,27 @@
     <form @submit.prevent="addTask" class="dashboard__form">
       <input
         v-model="newTask.title"
-        class="dashboard__input dashboard__input--title"
+        class="form-control dashboard__input dashboard__input--title"
         placeholder="Название задачи"
         required
       />
       <input
         v-model="newTask.description"
-        class="dashboard__input dashboard__input--description"
+        class="form-control dashboard__input dashboard__input--description"
         placeholder="Описание"
       />
-      <select v-model="newTask.status" class="dashboard__select dashboard__select--status" required>
+      <select v-model="newTask.status" class="form-select dashboard__select dashboard__select--status" required>
         <option v-for="opt in statusOptions" :key="opt.value" :value="opt.value">
           {{ opt.label }}
         </option>
       </select>
-      <select v-model="newTask.priority" class="dashboard__select dashboard__select--priority" required>
+      <select v-model="newTask.priority" class="form-select dashboard__select dashboard__select--priority" required>
         <option v-for="opt in priorityOptions" :key="opt.value" :value="opt.value">
           {{ opt.label }}
         </option>
       </select>
-      <input type="date" v-model="newTask.due_date" class="dashboard__input dashboard__input--date" />
-      <button type="submit" :disabled="loading" class="dashboard__button dashboard__button--add">
+      <input type="date" v-model="newTask.due_date" class="form-control dashboard__input dashboard__input--date" />
+      <button type="submit" :disabled="loading" class="btn btn-success dashboard__button dashboard__button--add">
         {{ loading ? 'Загрузка…' : 'Добавить' }}
       </button>
     </form>
@@ -45,27 +45,27 @@
         </div>
         <div v-else class="dashboard__task-edit">
           <div class="dashboard__task-title">
-            <input v-model="task.title" class="dashboard__input dashboard__input--title" />
+            <input v-model="task.title" class="form-control dashboard__input dashboard__input--title" />
           </div>
           <div class="dashboard__task-description">
-            <input v-model="task.description" class="dashboard__input dashboard__input--description" />
+            <input v-model="task.description" class="form-control dashboard__input dashboard__input--description" />
           </div>
           <div class="dashboard__task-status">
-            <select v-model="task.status" class="dashboard__select dashboard__select--status">
+            <select v-model="task.status" class="form-select dashboard__select dashboard__select--status">
               <option v-for="opt in statusOptions" :key="opt.value" :value="opt.value">
                 {{ opt.label }}
               </option>
             </select>
           </div>
           <div class="dashboard__task-priority">
-            <select v-model="task.priority" class="dashboard__select dashboard__select--priority">
+            <select v-model="task.priority" class="form-select dashboard__select dashboard__select--priority">
               <option v-for="opt in priorityOptions" :key="opt.value" :value="opt.value">
                 {{ opt.label }}
               </option>
             </select>
           </div>
           <div class="dashboard__task-date">
-            <input type="date" v-model="task.due_date" class="dashboard__input dashboard__input--date" />
+            <input type="date" v-model="task.due_date" class="form-control dashboard__input dashboard__input--date" />
           </div>
         </div>
 
@@ -73,7 +73,7 @@
           v-if="!task.editing"
           @click="task.editing = true"
           :disabled="loading"
-          class="dashboard__button dashboard__button--edit"
+          class="btn btn-secondary dashboard__button dashboard__button--edit"
         >
           Редактировать
         </button>
@@ -81,14 +81,14 @@
           v-else
           @click="updateTask(task)"
           :disabled="loading"
-          class="dashboard__button dashboard__button--save"
+          class="btn btn-primary dashboard__button dashboard__button--save"
         >
           Сохранить
         </button>
         <button
           @click="deleteTask(task.id)"
           :disabled="loading"
-          class="dashboard__button dashboard__button--delete"
+          class="btn btn-danger dashboard__button dashboard__button--delete"
         >
           Удалить
         </button>

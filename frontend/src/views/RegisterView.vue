@@ -9,31 +9,31 @@
         type="text"
         placeholder="Имя"
         required
-        class="register__input register__input--name"
+        class="form-control register__input register__input--name"
       />
       <input
         v-model="email"
         type="email"
         placeholder="Email"
         required
-        class="register__input register__input--email"
+        class="form-control register__input register__input--email"
       />
       <input
         v-model="password"
         type="password"
         placeholder="Пароль"
         required
-        class="register__input register__input--password"
+        class="form-control register__input register__input--password"
       />
       <input
         v-model="passwordConfirm"
         type="password"
         placeholder="Пароль ещё раз"
         required
-        class="register__input register__input--password-confirm"
+        class="form-control register__input register__input--password-confirm"
       />
 
-      <button :disabled="loading" class="register__button">
+      <button :disabled="loading" class="btn btn-primary register__button">
         {{ loading ? 'Загрузка…' : 'Зарегистрироваться' }}
       </button>
 
