@@ -8,7 +8,6 @@
           <li><a href="#" @click.prevent="logout">Выйти</a></li>
         </template>
         <template v-else>
-          <li><router-link to="/login">Войти</router-link></li>
           <li><router-link to="/register">Регистрация</router-link></li>
         </template>
       </ul>
