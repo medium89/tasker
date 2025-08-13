@@ -66,6 +66,33 @@ export async function login(email, password) {
   return fetchUser()
 }
 
+export async function register(name, email, password, passwordConfirmation) {
+  await getCsrf()
+  const xsrf = getCookie('XSRF-TOKEN')
+
+  const res = await fetch('/register', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'X-XSRF-TOKEN': xsrf,
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      password,
+      password_confirmation: passwordConfirmation,
+    }),
+  })
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    throw new Error(data.message || 'Не удалось зарегистрироваться')
+  }
+  return fetchUser()
+}
+
 export async function logout() {
   const xsrf = getCookie('XSRF-TOKEN')
 
