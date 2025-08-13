@@ -8,16 +8,14 @@
       <input v-model="newTask.title" placeholder="Название задачи" required />
       <input v-model="newTask.description" placeholder="Описание" />
       <select v-model="newTask.status" required>
-        <option value="backlog">backlog</option>
-        <option value="todo">todo</option>
-        <option value="doing">doing</option>
-        <option value="done">done</option>
+        <option v-for="opt in statusOptions" :key="opt.value" :value="opt.value">
+          {{ opt.label }}
+        </option>
       </select>
       <select v-model="newTask.priority" required>
-        <option value="low">low</option>
-        <option value="normal">normal</option>
-        <option value="high">high</option>
-        <option value="urgent">urgent</option>
+        <option v-for="opt in priorityOptions" :key="opt.value" :value="opt.value">
+          {{ opt.label }}
+        </option>
       </select>
       <input type="date" v-model="newTask.due_date" />
       <button type="submit" :disabled="loading">{{ loading ? 'Загрузка…' : 'Добавить' }}</button>
@@ -28,23 +26,22 @@
     <ul>
       <li v-for="task in tasks" :key="task.id">
         <span v-if="!task.editing">
-          {{ task.title }} — {{ task.description }} — {{ task.status }} —
-          {{ task.priority }} — {{ task.due_date }}
+          {{ task.title }} — {{ task.description }} —
+          {{ statusLabel(task.status) }} —
+          {{ priorityLabel(task.priority) }} — {{ task.due_date }}
         </span>
         <span v-else>
           <input v-model="task.title" />
           <input v-model="task.description" />
           <select v-model="task.status">
-            <option value="backlog">backlog</option>
-            <option value="todo">todo</option>
-            <option value="doing">doing</option>
-            <option value="done">done</option>
+            <option v-for="opt in statusOptions" :key="opt.value" :value="opt.value">
+              {{ opt.label }}
+            </option>
           </select>
           <select v-model="task.priority">
-            <option value="low">low</option>
-            <option value="normal">normal</option>
-            <option value="high">high</option>
-            <option value="urgent">urgent</option>
+            <option v-for="opt in priorityOptions" :key="opt.value" :value="opt.value">
+              {{ opt.label }}
+            </option>
           </select>
           <input type="date" v-model="task.due_date" />
         </span>
@@ -62,6 +59,26 @@ import { ref, onMounted } from 'vue'
 import axios from '@/axios' // твой файл с конфигом axios
 
 const tasks = ref([])
+const statusOptions = [
+  { value: 'backlog', label: 'Бэклог' },
+  { value: 'todo', label: 'К выполнению' },
+  { value: 'doing', label: 'В работе' },
+  { value: 'done', label: 'Сделано' },
+]
+const priorityOptions = [
+  { value: 'low', label: 'Низкий' },
+  { value: 'normal', label: 'Обычный' },
+  { value: 'high', label: 'Высокий' },
+  { value: 'urgent', label: 'Срочный' },
+]
+const statusLabel = value => {
+  const opt = statusOptions.find(o => o.value === value)
+  return opt ? opt.label : value
+}
+const priorityLabel = value => {
+  const opt = priorityOptions.find(o => o.value === value)
+  return opt ? opt.label : value
+}
 const newTask = ref({
   title: '',
   description: '',
